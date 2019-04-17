@@ -1,0 +1,31 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+    name: tomcat
+    annotations:
+        # annotations document:  https://kubernetes-sigs.github.io/aws-alb-ingress-controller/guide/ingress/annotation/
+        kubernetes.io/ingress.class: alb
+        alb.ingress.kubernetes.io/scheme: internet-facing
+        alb.ingress.kubernetes.io/tags: Environment=test,Team=group123
+        alb.ingress.kubernetes.io/target-type: ip
+        alb.ingress.kubernetes.io/inbound-cidrs: 123.123.123.123/32
+        #alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:eu-west-1:1111111111:certificate/e34b07cc-11111111111
+        alb.ingress.kubernetes.io/subnets: subnet-123,subnet-123,subnet-123
+spec:
+    rules:
+    -   host: tomcat8.example.com
+        http:
+            paths:
+            -   path: /*
+                backend:
+                    serviceName: tomcat8-service
+                    servicePort: 80
+
+    -   host: tomcat7.example.com
+        http:
+            paths:
+                -   path: /*
+                    backend:
+                        serviceName: tomcat7-service
+                        servicePort: 80
+

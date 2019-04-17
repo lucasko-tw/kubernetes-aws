@@ -1,0 +1,27 @@
+apiVersion: apps/v1beta2 # for kubectl versions >= 1.9.0 use apps/v1
+kind: Deployment
+metadata:
+  name: tomcat-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tomcat-app
+  template:
+    metadata:
+      labels:
+        app: tomcat-app
+    spec:
+      containers:
+        - image: tomcat:8
+          name: tomcat8
+          ports:
+          - name: mytomcat-port
+            containerPort: 8080
+          volumeMounts:
+            - name: tomcat-properties
+              mountPath: /data/
+      volumes:
+        - name: tomcat-properties
+          configMap:
+            name: data-properties

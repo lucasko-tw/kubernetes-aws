@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: test
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: my-tomcat8
+  namespace: test
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      env:  prod
+      version:  tomcat8
+  template:
+    metadata:
+      labels:
+        env:  prod
+        version:  tomcat8
+    spec:
+      containers:
+        - image: tomcat:8
+          imagePullPolicy: Always
+          name:  tomcat8
+          ports:
+            - containerPort: 8080

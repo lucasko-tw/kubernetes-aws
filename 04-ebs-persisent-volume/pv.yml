@@ -1,0 +1,17 @@
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: mysql-pv
+  labels:
+    type: amazonEBS
+spec:
+  capacity:
+    storage: 5Gi
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: gp2
+  awsElasticBlockStore:
+    # aws ec2 create-volume --region eu-west-1 --availability-zone eu-west-1a --size 11 --volume-type gp2
+    #volumeID: <your-volume-id>
+    volumeID: vol-0534e1bbc4af560fc
+    fsType: ext4

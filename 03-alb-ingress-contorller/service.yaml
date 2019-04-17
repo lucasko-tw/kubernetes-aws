@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: tomcat8-service
+spec:
+  ports:
+  - port: 80
+    targetPort: 8080
+    protocol: TCP
+  type: NodePort
+  selector:
+    app: tomcat8
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: tomcat7-service
+spec:
+  ports:
+    - port: 80
+      targetPort: 8080
+      protocol: TCP
+  type: NodePort
+  selector:
+    app: tomcat7

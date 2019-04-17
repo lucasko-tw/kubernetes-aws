@@ -1,0 +1,27 @@
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: test-pv
+  labels:
+    type: amazonEBS
+spec:
+  capacity:
+    storage: 5Gi
+  accessModes:
+    - ReadWriteMany
+  awsElasticBlockStore:
+    volumeID: vol-027e1d42cee27236c
+    fsType: ext4
+
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: test-pvc
+  labels:
+    type: amazonEBS
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 10Gi

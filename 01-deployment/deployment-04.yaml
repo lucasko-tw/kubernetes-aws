@@ -1,0 +1,28 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: my-application
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app:  my-app
+  template:
+    metadata:
+      labels:
+        app:  my-app
+    spec:
+      containers:
+        - image: tomcat:8
+          imagePullPolicy: Always
+          name:  tomcat8
+          ports:
+            - containerPort: 8080
+
+        - image: mysql:5.6
+          name: mysql
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              value: "123456789"
+          ports:
+            - containerPort: 3306
